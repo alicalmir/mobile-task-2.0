@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:mobile_task/utils/config.dart';
+import 'package:mobile_task/screens/home_screen.dart';
+import 'package:mobile_task/screens/login_screen.dart';
+
+import '../utils/config.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,6 +15,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) =>const  LoginScreen()));
+        },
+        child: Icon(Icons.forward),
+      ),
       body: SafeArea(
           child: Center(
         child: Image(

@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mobile_task/firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mobile_task/provider/post_provider.dart';
 import 'package:mobile_task/screens/splash_screen.dart';
-import 'firebase_options.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'provider/auth_proivder.dart';
+import 'package:mobile_task/screens/home_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+import 'screens/create_post.dart';
 
 void main() async {
+  Provider.debugCheckInvalidValueType = null;
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
+
+final FirebaseAuth auth = FirebaseAuth.instance;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -21,9 +25,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SplashScreen(),
-      debugShowCheckedModeBanner: false,
+    return MultiProvider(
+      providers: [
+        Provider<AuthProvider>(create: (_) => AuthProvider()),
+        Provider<PostProvider>(create: (_) => PostProvider())
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: auth.currentUser == null ? const SplashScreen() : HomePage(),
+      ),
     );
   }
 }
