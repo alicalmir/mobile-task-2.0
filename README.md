@@ -2,20 +2,9 @@
 
 A new Flutter project.
 
-## Getting Started
+![viber_image_2022-12-27_04-04-29-635](https://user-images.githubusercontent.com/115038084/209605203-15687f73-3ee7-4e9b-bd02-0db785190e57.jpg)
 
-This project is a starting point for a Flutter application.
+![viber_image_2022-12-27_04-04-30-883](https://user-images.githubusercontent.com/115038084/209605215-b935d100-465a-4f51-a39f-29a5a9a0c1e4.jpg)
 
-A few resources to get you started if this is your first Flutter project:
+![viber_image_2022-12-27_04-04-56-606](https://user-images.githubusercontent.com/115038084/209605236-ea925d17-1097-4dc6-9961-43b0f6810bef.jpg)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# test
-# mobile-task
-# mobile-task
-# mobile-task
-# mobile-task
