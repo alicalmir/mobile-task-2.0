@@ -3,17 +3,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:mobile_task/screens/nav_button_page.dart';
+import 'package:mobile_task/utils/dialog.dart';
+import 'package:mobile_task/utils/loading_action.dart';
 import '../model/user_mdel.dart';
 import '../screens/home_screen.dart';
 
 class AuthProvider extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  
-  Stream get user =>_auth.authStateChanges();
+
+  Stream get user => _auth.authStateChanges();
 
   /// Google signIn
   Future googleSignIn(BuildContext context) async {
+    final navigator = Navigator.of(context);
     try {
       final GoogleSignInAccount? user = await GoogleSignIn().signIn();
 
@@ -34,17 +38,17 @@ class AuthProvider extends ChangeNotifier {
             .collection('users')
             .doc(userCredential.user!.uid)
             .set(userModel.toJson());
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const HomePage()));
+        navigator
+            .push(MaterialPageRoute(builder: (context) => const HomePage()));
       }
     } on FirebaseAuthException catch (e) {
-      print(e.toString());
-      // you can show a snackBar here if there is error
+      showpopDialog(context: context, data: e.toString());
     }
   }
 
   /// facebook auth
   Future facebookSignIn(BuildContext context) async {
+    final navigator = Navigator.of(context);
     try {
       final LoginResult loginResult = await FacebookAuth.instance.login();
 
@@ -63,40 +67,45 @@ class AuthProvider extends ChangeNotifier {
             .collection('users')
             .doc(userCredential.user!.uid)
             .set(userModel.toJson());
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const HomePage()));
+
+        navigator
+            .push(MaterialPageRoute(builder: (context) => const HomePage()));
       }
     } on FirebaseException catch (e) {
-      print(e.toString());
+      showpopDialog(context: context, data: e.toString());
     }
   }
 
-/// email and password
+  /// email and password
   Future emailPasswordAuth({
     required String name,
     required String email,
     required String password,
     required BuildContext context,
   }) async {
+    final navigator = Navigator.of(context);
     try {
+      showLoadingDialog(context);
       final user = await _auth.createUserWithEmailAndPassword(
           email: email.trim(), password: password.trim());
 
       if (user.user != null) {
         UserModel userModel = UserModel(
           id: user.user!.uid,
-          name: user.user!.displayName!,
-          email: user.user!.email!,
+          name: name,
+          email: email,
         );
         await _firestore
             .collection('users')
             .doc(user.user!.uid)
             .set(userModel.toJson());
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const HomePage()));
+        navigator.pop();
+        navigator.push(
+            MaterialPageRoute(builder: (context) => const NavButtonHome()));
       }
     } on FirebaseAuthException catch (e) {
-      print(e.toString());
+      navigator.pop();
+      showpopDialog(context: context, data: e.toString());
     }
   }
 }

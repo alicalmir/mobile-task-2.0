@@ -18,11 +18,11 @@ class _SplashScreenState extends State<SplashScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (_) =>const  LoginScreen()));
+              context, MaterialPageRoute(builder: (_) => const LoginScreen()));
         },
-        child: Icon(Icons.forward),
+        child: const Icon(Icons.forward),
       ),
-      body: SafeArea(
+      body: const SafeArea(
           child: Center(
         child: Image(
           image: AssetImage(Config.app_icon),

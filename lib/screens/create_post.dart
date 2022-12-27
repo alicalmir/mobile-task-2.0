@@ -15,12 +15,10 @@ class _CreatePostState extends State<CreatePost> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Create Post'),
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            const SizedBox(height: 120),
             Padding(
               padding: const EdgeInsets.only(top: 60, left: 20, right: 20),
               child: Container(

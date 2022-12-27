@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:mobile_task/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobile_task/provider/post_provider.dart';
+import 'package:mobile_task/screens/nav_button_page.dart';
 import 'package:mobile_task/screens/splash_screen.dart';
 import 'provider/auth_proivder.dart';
 import 'package:mobile_task/screens/home_screen.dart';
@@ -32,7 +33,9 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: auth.currentUser == null ? const SplashScreen() : HomePage(),
+        home: auth.currentUser == null
+            ? const SplashScreen()
+            : const NavButtonHome(),
       ),
     );
   }
